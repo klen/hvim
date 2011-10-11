@@ -19,7 +19,7 @@ endif
 " ARGS: cmd -- str, command
 "       word -- str, command param
 fun! <SID>:ShowGHCICmd(cmd, word) "{{{
-    if a:word == '' | call helpers#ShowError('no name/symbol under cursor!') | return 0 | endif
+    if a:word == '' | echoerr 'no name/symbol under cursor!' | return 0 | endif
     let output = system(g:ghc . ' -v0 --interactive ' . expand("%"), " :" . a:cmd . " " .  escape(a:word, " "))
     call helpers#ShowPreview(output)
 endfunction "}}}
@@ -27,7 +27,7 @@ endfunction "}}}
 " DESC: Insert ghci type
 " ARGS: word -- str, word for type
 fun! <SID>:InsertType(word) "{{{
-    if a:word == '' | call helpers#ShowError('no name/symbol under cursor!') | return 0 | endif
+    if a:word == '' | echoerr 'no name/symbol under cursor!' | return 0 | endif
     let output = system(g:ghc . ' -v0 --interactive ' . expand("%"), ":type ". escape(a:word, " "))
     call append(line(".")-1, output )
 endfunction "}}}
@@ -36,7 +36,6 @@ endfunction "}}}
 " ARGS: word -- str, word for search
 fun! <SID>:Hoogle(word) "{{{
     if !helpers#CheckProgramm('hoogle')
-        helpers#ShowError('Hoogle must be installed for this command.')
         return 0
     endif
     let cmd = g:hoogle . " --info " . escape(a:word, " ")
