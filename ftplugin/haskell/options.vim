@@ -1,4 +1,5 @@
-if helpers#SafeVar('b:did_options', 1)
+" DESC: Disable script loading
+if helpers#SafeVar('b:options', 1)
     finish
 endif
 

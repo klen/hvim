@@ -8,7 +8,6 @@ Requirements
 ------------
 
 - VIM >= 7.0 with python support
-- plugin-helpers_ -- vim plugin
 - ghc_ -- for code run and checking
 - hacktags_ -- for auto creation tags
 - hoogle_ -- for hoogle search
@@ -17,8 +16,7 @@ Requirements
 Installation
 ------------
 
-- First plugin-helpers_ must be installed.
-- Second just copy the plugin folders into your `~/.vim` directory.
+- Just copy the plugin folders into your `~/.vim` directory.
 
 .. note:: Alternatively, if you are using pathogen_, clone the plugin into your ``bundle`` folder.
 
