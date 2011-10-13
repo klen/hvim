@@ -1,17 +1,17 @@
 " DESC: Set scriptname
-let g:scriptname = expand('<sfile>:t')
+let g:scriptname = expand("<sfile>:t")
 
 " OPTION: g:hvim_utils -- bool. Load hvim utils script
-call helpers#SafeVar('g:hvim_utils', 1)
+call helpers#SafeVar("g:hvim_utils", 1)
 
 " OPTION: g:hvim_utils_type_key -- str. Key for show type
-call helpers#SafeVar('g:hvim_utils_type_key', "'<leader>t'")
+call helpers#SafeVar("g:hvim_utils_type_key", "<leader>t")
 
 " OPTION: g:hvim_utils_browse_key -- str. Key for :browse
-call helpers#SafeVar('g:hvim_utils_browse_key', "'<leader>t'")
+call helpers#SafeVar("g:hvim_utils_browse_key", "<leader>b")
 
 " DESC: Disable script loading
-if helpers#SafeVar("b:utils", 1) || !helpers#CheckProgramm('ghc') || g:hvim_utils == 0
+if helpers#SafeVar("b:utils", 1) || !helpers#CheckProgramm("ghc") || g:hvim_utils == 0
     finish
 endif
 
@@ -19,23 +19,23 @@ endif
 " ARGS: cmd -- str, command
 "       word -- str, command param
 fun! <SID>:ShowGHCICmd(cmd, word) "{{{
-    if a:word == '' | echoerr 'no name/symbol under cursor!' | return 0 | endif
-    let output = system(g:ghc . ' -v0 --interactive ' . expand("%"), " :" . a:cmd . " " .  escape(a:word, " "))
+    if a:word == '' | echoerr "no name/symbol under cursor!" | return 0 | endif
+    let output = system(g:ghc . " -v0 --interactive " . expand("%"), " :" . a:cmd . " " .  escape(a:word, " "))
     call helpers#ShowPreview(output)
 endfunction "}}}
 
 " DESC: Insert ghci type
 " ARGS: word -- str, word for type
 fun! <SID>:InsertType(word) "{{{
-    if a:word == '' | echoerr 'no name/symbol under cursor!' | return 0 | endif
-    let output = system(g:ghc . ' -v0 --interactive ' . expand("%"), ":type ". escape(a:word, " "))
+    if a:word == '' | echoerr "no name/symbol under cursor!" | return 0 | endif
+    let output = system(g:ghc . " -v0 --interactive " . expand("%"), ":type ". escape(a:word, " "))
     call append(line(".")-1, output )
 endfunction "}}}
 
 " DESC: Search in hoogle
 " ARGS: word -- str, word for search
 fun! <SID>:Hoogle(word) "{{{
-    if !helpers#CheckProgramm('hoogle')
+    if !helpers#CheckProgramm("hoogle")
         return 0
     endif
     let cmd = g:hoogle . " --info " . escape(a:word, " ")
